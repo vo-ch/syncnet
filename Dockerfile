@@ -27,7 +27,7 @@ VOLUME C:\database
 ENV sa_password Qwerty123
 
 WORKDIR C:\init
-COPY Initialize-Database.ps1 Update-Database.ps1 Apply-Database.ps1 ./
+COPY Initialize-Database.ps1 Initialize-LocalDatabase.ps1 Initialize-RemoteDatabase.ps1 ./
 
 CMD ./Apply-Database.ps1  -Verbose `
       -sa_password $env:sa_password `
