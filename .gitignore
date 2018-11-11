@@ -262,5 +262,4 @@ __pycache__/
 
 .history/
 .vscode/
-README.md
-*.md
+cmd.md
