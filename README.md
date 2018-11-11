@@ -1,5 +1,4 @@
 # syncnet
-docker login --username vochregistry --password lRpaH+Z=BzT3B/xQpgnXPJE12XY3s3aM vochregistry.azurecr.io
 
 # builder
 docker image build --tag vochregistry.azurecr.io/voch/storedb-builder:v1 --file Dockerfile.builder .
