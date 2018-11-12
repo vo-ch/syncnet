@@ -2,11 +2,11 @@
 
 # STAGE 1
 # builder image
-FROM dockersamples/assets-db-builder1 AS builder
+FROM vochregistry.azurecr.io/voch/storedb-builder:1 AS builder
 
 WORKDIR C:\src
-COPY src\Assets.Database-v1\ .
-RUN msbuild Assets.Database.sqlproj `
+COPY StoreDB\ .
+RUN msbuild StoreDB\StoreDB.sqlproj `
       /p:SQLDBExtensionsRefPath="C:\Microsoft.Data.Tools.Msbuild.10.0.61026\lib\net40" `
       /p:SqlServerRedistPath="C:\Microsoft.Data.Tools.Msbuild.10.0.61026\lib\net40"
 
@@ -32,4 +32,4 @@ COPY Initialize-LocalDatabase.ps1 ./
 CMD ./Initialize-LocalDatabase.ps1  -Verbose `
       -sa_password $env:sa_password
 
-COPY --from=builder C:\src\bin\Debug\Assets.Database.dacpac .
+COPY --from=builder C:\src\StoreDB\bin\Debug\StoreDB.dacpac .

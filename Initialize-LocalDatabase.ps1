@@ -11,10 +11,10 @@ if ($sa_password -ne "_") {
 }
 
 # attach data files if they exist: 
-$mdfPath = 'c:\database\AssetsDB_Primary.mdf'
+$mdfPath = 'c:\database\StoreDB_Primary.mdf'
 if ((Test-Path $mdfPath) -eq $true) {
-    $sqlcmd = "CREATE DATABASE AssetsDB ON (FILENAME = N'$mdfPath')"
-    $ldfPath = 'c:\database\AssetsDB_Primary.ldf'
+    $sqlcmd = "CREATE DATABASE StoreDB ON (FILENAME = N'$mdfPath')"
+    $ldfPath = 'c:\database\StoreDB_Primary.ldf'
     if ((Test-Path $mdfPath) -eq $true) {
         $sqlcmd =  "$sqlcmd, (FILENAME = N'$ldfPath')"
     }
@@ -26,11 +26,11 @@ if ((Test-Path $mdfPath) -eq $true) {
 # deploy or upgrade the database:
 $SqlPackagePath = 'C:\Program Files\Microsoft SQL Server\140\DAC\bin\SqlPackage.exe'
 & $SqlPackagePath  `
-    /sf:Assets.Database.dacpac `
+    /sf:StoreDB.dacpac `
     /a:Script /op:create.sql /p:CommentOutSetVarDeclarations=true `
-    /tsn:.\SQLEXPRESS /tdn:AssetsDB /tu:sa /tp:$sa_password 
+    /tsn:.\SQLEXPRESS /tdn:StoreDB /tu:sa /tp:$sa_password 
 
-$SqlCmdVars = "DatabaseName=AssetsDB", "DefaultFilePrefix=AssetsDB", "DefaultDataPath=c:\database\", "DefaultLogPath=c:\database\"  
+$SqlCmdVars = "DatabaseName=StoreDB", "DefaultFilePrefix=StoreDB", "DefaultDataPath=c:\database\", "DefaultLogPath=c:\database\"  
 Invoke-Sqlcmd -InputFile create.sql -Variable $SqlCmdVars -Verbose
 
 # relay SQL event logs to Docker
