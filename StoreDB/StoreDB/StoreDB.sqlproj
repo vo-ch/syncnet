@@ -59,11 +59,13 @@
     <Folder Include="Properties" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\PostDep" />
+    <Folder Include="Views" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Products.sql" />
     <Build Include="Categories.sql" />
     <Build Include="Orders.sql" />
+    <Build Include="Views\OrderedProducts.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

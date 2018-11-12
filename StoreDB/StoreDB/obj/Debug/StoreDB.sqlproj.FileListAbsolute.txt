@@ -1,0 +1,10 @@
+D:\projects\syncnet\StoreDB\StoreDB\bin\Debug\StoreDB.dacpac
+D:\projects\syncnet\StoreDB\StoreDB\bin\Debug\StoreDB.dll
+D:\projects\syncnet\StoreDB\StoreDB\bin\Debug\StoreDB.pdb
+D:\projects\syncnet\StoreDB\StoreDB\obj\Debug\StoreDB.sqlprojAssemblyReference.cache
+D:\projects\syncnet\StoreDB\StoreDB\obj\Debug\Model.xml
+D:\projects\syncnet\StoreDB\StoreDB\obj\Debug\refactor.xml
+D:\projects\syncnet\StoreDB\StoreDB\obj\Debug\postdeploy.sql
+D:\projects\syncnet\StoreDB\StoreDB\obj\Debug\predeploy.sql
+D:\projects\syncnet\StoreDB\StoreDB\obj\Debug\StoreDB.dll
+D:\projects\syncnet\StoreDB\StoreDB\obj\Debug\StoreDB.pdb
