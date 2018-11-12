@@ -27,9 +27,12 @@ VOLUME C:\database
 ENV sa_password Qwerty123
 
 WORKDIR C:\init
-COPY Initialize-LocalDatabase.ps1 ./
+COPY Initialize-Database.ps1 Initialize-LocalDatabase.ps1 Initialize-RemoteDatabase.ps1 ./
 
-CMD ./Initialize-LocalDatabase.ps1  -Verbose `
-      -sa_password $env:sa_password
+CMD ./Apply-Database.ps1  -Verbose `
+      -sa_password $env:sa_password `
+      -user $env:remote_db_user `
+      -server $env:remote_db_server `
+      -server_password $env:remote_db_password
 
 COPY --from=builder C:\src\bin\Debug\Assets.Database.dacpac .
