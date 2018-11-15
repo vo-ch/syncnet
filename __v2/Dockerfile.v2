@@ -36,7 +36,7 @@ WORKDIR C:\init
 COPY Initialize-Database.ps1 Initialize-LocalDatabase.ps1 Initialize-RemoteDatabase.ps1 ./
 
 # run script
-CMD ./Apply-Database.ps1  -Verbose `
+CMD ./Initialize-Database.ps1  -Verbose `
       -sa_password $env:sa_password `
       -user $env:remote_db_user `
       -server $env:remote_db_server `
