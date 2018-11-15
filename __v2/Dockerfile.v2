@@ -2,11 +2,12 @@
 
 # STAGE 1
 # builder image
-FROM dockersamples/assets-db-builder1 AS builder
+FROM vochregistry.azurecr.io/voch/storedb-builder:1 AS builder
 
+# Copy sorce code into temp container based on storedb-builder and build it with msbuild
 WORKDIR C:\src
-COPY src\Assets.Database-v1\ .
-RUN msbuild Assets.Database.sqlproj `
+COPY StoreDB\ .
+RUN msbuild StoreDB\StoreDB.sqlproj `
       /p:SQLDBExtensionsRefPath="C:\Microsoft.Data.Tools.Msbuild.10.0.61026\lib\net40" `
       /p:SqlServerRedistPath="C:\Microsoft.Data.Tools.Msbuild.10.0.61026\lib\net40"
 
@@ -16,6 +17,7 @@ RUN msbuild Assets.Database.sqlproj `
 FROM microsoft/mssql-server-windows-express
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
+# download and install DacFramework (for dacpack unpacking)
 ADD https://download.microsoft.com/download/D/5/C/D5CFC940-DA21-44D3-84FF-A0FD147F1681/EN/x64/DacFramework.msi /DacFramework.msi
 RUN Start-Process -FilePath 'msiexec.exe'                         `
         -ArgumentList '/quiet','/qn','/norestart',                `
@@ -23,16 +25,22 @@ RUN Start-Process -FilePath 'msiexec.exe'                         `
                       '/i','\DacFramework.msi'                    `
         -Wait
 
+# mount point
 VOLUME C:\database
+
+# default password, just for demo purposes
 ENV sa_password Qwerty123
 
 WORKDIR C:\init
+# copy main ps script to image
 COPY Initialize-Database.ps1 Initialize-LocalDatabase.ps1 Initialize-RemoteDatabase.ps1 ./
 
+# run script
 CMD ./Apply-Database.ps1  -Verbose `
       -sa_password $env:sa_password `
       -user $env:remote_db_user `
       -server $env:remote_db_server `
       -server_password $env:remote_db_password
 
-COPY --from=builder C:\src\bin\Debug\Assets.Database.dacpac .
+# copy dacpac file from builder container (from Stage 1)
+COPY --from=builder C:\src\StoreDB\bin\Debug\StoreDB.dacpac .

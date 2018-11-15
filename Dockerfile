@@ -4,7 +4,7 @@
 # builder image
 FROM vochregistry.azurecr.io/voch/storedb-builder:1 AS builder
 
-# Copy sorce code into container and build it with msbuild
+# Copy sorce code into temp container based on storedb-builder and build it with msbuild
 WORKDIR C:\src
 COPY StoreDB\ .
 RUN msbuild StoreDB\StoreDB.sqlproj `
