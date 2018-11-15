@@ -18,3 +18,4 @@ bld/
 [Ll]og/
 .vscode/
 .history/
+*.swp
