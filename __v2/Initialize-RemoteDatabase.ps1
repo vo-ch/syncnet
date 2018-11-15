@@ -10,14 +10,16 @@ Write-Verbose 'Updatig server...'
 $SqlPackagePath = 'C:\Program Files\Microsoft SQL Server\140\DAC\bin\SqlPackage.exe'
 & $SqlPackagePath  `
     /a:Script `
-    /sf:Assets.Database.dacpac `
+    /sf:StoreDB.dacpac `
     /op:create.sql `
     /p:CommentOutSetVarDeclarations=true `
-    /tsn:$server /tu:$user /tdn:AssetsDB /tp:$server_password 
+    /tsn:$server /tu:$user /tdn:StoreDB /tp:$server_password 
 
-$SqlCmdVars = "DatabaseName=AssetsDB"
+$SqlCmdVars = "DatabaseName=StoreDB"
 Invoke-Sqlcmd -InputFile create.sql -Variable $SqlCmdVars -Verbose `
-    -ServerInstance 'assetsdb.database.windows.net' `
+    -ServerInstance $server `
     -Username $user `
     -Password $server_password `
-    -Database 'AssetsDB'
+    -Database 'StoreDB'
+
+Write-Verbose 'Success!'
