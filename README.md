@@ -20,9 +20,11 @@ docker container run --rm --detach --name storedb -p 1433:1433 --volume dbdata:C
 
 # after schema changes
 docker image build --tag vochregistry.azurecr.io/voch/storedb:2 .
+
 docker container run --rm --detach --name storedb -p 1433:1433 --volume dbdata:C:\database vochregistry.azurecr.io/voch/storedb:2
 
 # remote db
 
 docker image build --tag vochregistry.azurecr.io/voch/storedb:3 --file Dockerfile.v2 .
+
 docker run --rm --name storedb -p 1433:1433 -e remote_db_server=serveraddres -e remote_db_user=login -e remote_db_password=password vochregistry.azurecr.io/voch/storedb:3
